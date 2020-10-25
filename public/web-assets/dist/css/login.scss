@@ -1,0 +1,130 @@
+$xs: 768px;
+@mixin xs {
+  @media (max-width:#{$xs}) {
+    @content;
+  }
+}
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap");
+body {
+  font-family: "Roboto", sans-serif !important;
+}
+.section_login {
+  position: relative;
+  object-fit: cover;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.753);
+  }
+  .login-left {
+    height: 100vh;
+    padding: 20px;
+    padding-left: 80px;
+    @include xs {
+      min-height: 50vh;
+    }
+    .logo_anchor {
+      display: flex;
+      align-items: baseline;
+      color: #fff;
+      .login_logo {
+        height: auto;
+        width: 100px;
+      }
+      span {
+        margin-left: 15px;
+      }
+    }
+    .client_logo {
+      height: auto;
+      width: 120px;
+    }
+    .headings_login {
+      h1 {
+        font-weight: 300;
+        color: #fff;
+        margin-top: 20px;
+      }
+      p {
+        color: rgb(211, 211, 211);
+      }
+    }
+    .section_list {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      .icon {
+        font-size: 2rem;
+        color: #fff;
+        margin-right: 15px;
+      }
+      .content {
+        h5 {
+          margin: 0;
+          color: rgb(32, 149, 235);
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+        p {
+          color: #fff;
+          font-size: 0.9rem;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+  .login-right {
+    height: 100vh;
+    background-color: #fff;
+    padding: 20px 50px;
+    @include xs {
+      min-height: 50vh;
+    }
+    .login_form {
+      padding: 100px 0;
+      .form-group {
+        margin-bottom: 20px;
+        label {
+          color: rgb(136, 136, 136);
+        }
+        .form-control {
+          padding: 10px;
+          &:focus {
+            border: 1px solid rgb(33, 154, 245);
+          }
+          &::placeholder {
+            font-weight: 300;
+            font-size: 14px;
+          }
+        }
+      }
+      .btn-primary {
+        padding: 10px 50px;
+        width: 100%;
+        transition: 0.4s;
+        background-color: rgb(33, 154, 245);
+        border-color: rgb(33, 154, 245);
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+    .calltop {
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        i {
+          margin-right: 15px;
+        }
+      }
+    }
+  }
+}
