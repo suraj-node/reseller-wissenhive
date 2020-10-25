@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="content">
                                     <h5>97% </h5>
-                                    <p>Instructor ratingg</p>
+                                    <p>Instructor rating</p>
                                 </div>
                             </div>
                         </div>
