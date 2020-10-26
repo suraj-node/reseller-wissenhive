@@ -34,9 +34,10 @@
                             </a>
                         </div>
                     </div>
+                    
                     <div class="row py-5 headings_login">
                         <div class="col mt-3">
-                            <img src="https://d1jnx9ba8s6j9r.cloudfront.net/img/corp_logo/logo_Pinnacledu1536659525.png"
+                            <img src="http://localhost/wissenhive/public/resellers/logo/{{ $reseller->logo }}"
                                 class="client_logo" alt="">
                             <h1>WissenHive understands! </h1>
                             <p>Edureka offers it Corporate clientele the most engaging and reliable online learning
