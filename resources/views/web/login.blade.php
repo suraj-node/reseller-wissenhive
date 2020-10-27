@@ -13,6 +13,9 @@
     <!-- Custom CSS -->
     <link href="{{ asset('web-assets/dist/css/style.min.css') }}" rel="stylesheet">
     <link href="{{ asset('web-assets/dist/css/login.css') }}" rel="stylesheet">
+    <style type="text/css">
+        .error-msg{color:red;font-size:13px;}
+    </style>
 </head>
 
 <body>
@@ -37,7 +40,7 @@
                     
                     <div class="row py-5 headings_login">
                         <div class="col mt-3">
-                            <img src="http://localhost/wissenhive/public/resellers/logo/{{ $reseller->logo }}"
+                            <img src="{{ Config::get('constant.logo_url').'/'.$reseller->logo }}"
                                 class="client_logo" alt="">
                             <h1>WissenHive understands! </h1>
                             <p>Edureka offers it Corporate clientele the most engaging and reliable online learning
@@ -105,18 +108,35 @@
                             </ul>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col">
-                            <form class="login_form">
+
+                            <form class="login_form" method="post" action="{{ route('web.validate') }}">
+                                
+                                @if(Session::has('error'))
+                                <div class="alert alert-danger">
+                                    <strong>{{ Session::get('error') }}</strong>
+                                </div>
+                                @endif
+                                @if(Session::has('success'))
+                                <div class="alert alert-success">
+                                    <strong>{{ Session::get('success') }}</strong>
+                                </div>
+                                @endif
+                                @csrf
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address*</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" placeholder="Enter email address">
+                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Enter email address" value="{{ old('email') }}">
+
+                                    <p class="mt-2 error-msg">{{ $errors->first('email') }}</p>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password*</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1"
-                                        placeholder="Enter password">
+                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="exampleInputPassword1"
+                                        placeholder="Enter password" value="{{ old('password') }}">
+                                    <p class="mt-2 error-msg">{{ $errors->first('password') }}</p>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>

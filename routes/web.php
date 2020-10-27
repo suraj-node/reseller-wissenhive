@@ -19,6 +19,28 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/{company_name?}', 'AuthController@index')->name('web.login');
 
 
+
+Route::group(['middleware'=>'isResellerLoggedOut'], function(){
+	Route::get('/{company_name?}', 'AuthController@index')->name('web.login');
+	Route::post('/validate', 'AuthController@login')->name('web.validate');
+});
+
+
+
+Route::group(['middleware'=>'isResellerLoggedIn', 'prefix'=>'reseller'], function(){
+
+	//DASHBOARD
+
+	Route::get('/dashboard', ['uses'=>'DashboardController@index', 'as'=>'reseller.dashboard']);
+
+	Route::get('/logout', ['uses'=>'AuthController@logout', 'as'=>'reseller.logout']);
+
+	//USERS
+
+	Route::get('/users', ['uses'=>'UserController@index', 'as'=>'reseller.users']);
+	Route::get('/enrollment', ['uses'=>'UserController@enrollment', 'as'=>'reseller.enrollment']);
+
+});
+	
