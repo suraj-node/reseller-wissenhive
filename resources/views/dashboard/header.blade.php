@@ -74,7 +74,8 @@
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
                               
                                 <a class="dropdown-item" href="{{ route('reseller.logout') }}"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                              
+                                
+                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#change-password"><i class="mdi mdi-account-key m-r-5 m-l-5"></i> Change Password</a>
                               
                             </div>
                         </li>

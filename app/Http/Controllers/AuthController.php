@@ -8,9 +8,13 @@ use Redirect;
 use Hash;
 use Session;
 use Illuminate\Support\Facades\Config;
+use App\ActivityLoggerTrait;
 
 class AuthController extends Controller
-{
+{   
+
+    use ActivityLoggerTrait;
+
     public function index(Request $request, $companyName=Null){
 
     	if($companyName==Null){
@@ -51,6 +55,8 @@ class AuthController extends Controller
 
     				Session::put(Config::get('constant.reseller_session_key'), $reseller->first());
 
+                    $this->logActivity('Login at reseller portal', $reseller->first()->id, '0', 'Nothing to do');
+
     				return redirect()->route('reseller.dashboard')->with(['success'=>'Welcome back']);
 
     			}else{
@@ -73,11 +79,50 @@ class AuthController extends Controller
     		
     		$url = Session::get(Config::get('constant.reseller_session_key'));
     		$url_string = Session::get(Config::get('constant.reseller_session_key'))->url;
-    		
+    		$this->logActivity('Logout at reseller portal', $url->id, '0', 'Nothing to do');
             session()->forget(Config::get('constant.reseller_session_key'));
             session()->flush();
             return redirect()->route('web.login', ['company_name'=>$url_string])->with('success', 'You have been successfully Logged-out');
         }
+
+    }
+
+    public function verifyPassword(Request $request){
+
+        $validatedData = $request->validate([
+                'old_password'     =>  'required',
+                'new_password'     =>  'required_with:confirm_password|same:confirm_password|min:8',
+                'confirm_password' =>   'required',
+            ]);
+
+        $reseller = Session::get(Config::get('constant.reseller_session_key'));
+
+        $reseller_password = $reseller->password;
+        
+        if(Hash::check($request->old_password, $reseller_password)){
+
+            $update = Resellers::where('id',$reseller->id)->update(['password'=>Hash::make($request->new_password)]);
+
+            if($update){
+                $this->logActivity('Change password at reseller portal', $reseller->id, $reseller->id, 'Nothing to do');
+                return response()->json(['done'=>'1', 200]);
+            }
+
+        }else{
+
+            return response()->json(['custom_error'=>'Password doesnt match with our database! try again', 422]);
+
+        }
+
+    }
+
+    public function forcedLogout(Request $request){
+
+        $reseller = Session::get(Config::get('constant.reseller_session_key'));
+
+        session()->forget(Config::get('constant.reseller_session_key'));
+                session()->flush();
+                return redirect()->route('web.login', ['company_name'=>$reseller->url])->with('success', 'Your password has been successfully updated! Kindly login again to configure your new settings');
 
     }
 }

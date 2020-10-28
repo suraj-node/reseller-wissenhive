@@ -14,6 +14,7 @@
     
     <link href="{{ asset('web-assets/assets/libs/fullcalendar/dist/fullcalendar.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('web-assets/assets/extra-libs/calendar/calendar.css') }}" rel="stylesheet" />
+    <link href="{{ asset('web-assets/assets/libs/toastr/build/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('web-assets/dist/css/style.min.css') }}" rel="stylesheet">
     <style>
         .dataTables_filter {float:right;}
@@ -22,11 +23,12 @@
         .table-responsive tfoot {background: cadetblue; color:white;}
         table{font-size:12px;}
         .form-row{margin-top:5%}
+        .log-error{color:red;font-size:13px;}
     </style>
 </head>
 
 <body>
-    
+    <input type="hidden" id="base" value="{{ url('/') }}">
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
@@ -60,7 +62,9 @@
 
 
            <!-- MODEL MATERIALS -->
-
+           @php 
+           $countries = countries();
+           @endphp
            <!-- ADD NEW USER FORM -->
            <div class="modal fade none-border" id="add-new-user">
                     <div class="modal-dialog">
@@ -70,56 +74,195 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form id="add-user">
+                                    @csrf
                                     <div class="row form-row">
                                         <div class="col-md-6">
-                                            <input class="form-control form-white" placeholder="Enter first name" type="text" name="fname" />
+                                            <input class="form-control form-white @error('fname') is-invalid @enderror"  placeholder="Enter first name" type="text" name="fname" />
+                                            <p class="log-error mt-1" id='fname'></p>
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control form-white" placeholder="Enter last name" type="text" name="lname" />
+                                            <input class="form-control form-white form-white @error('lname') is-invalid @enderror" placeholder="Enter last name" type="text" name="lname" />
+                                            <p class="log-error mt-1" id='lname'></p>
+                                        </div>
+
+                                    </div>
+                                    <div class="row form-row">
+                                        <div class="col-md-6">
+                                            <input class="form-control form-white form-white @error('email') is-invalid @enderror" placeholder="Enter email" type="email" name="email" />
+                                            <p class="log-error mt-1" id='email'></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input class="form-control form-white form-white @error('mobile') is-invalid @enderror" placeholder="Enter mobile" type="text" name="mobile" />
+                                            <p class="log-error mt-1" id='mobile'></p>
                                         </div>
                                     </div>
                                     <div class="row form-row">
                                         <div class="col-md-6">
-                                            <input class="form-control form-white" placeholder="Enter email" type="email" name="email" />
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input class="form-control form-white" placeholder="Enter mobile" type="text" name="mobile" />
-                                        </div>
-                                    </div>
-                                    <div class="row form-row">
-                                        <div class="col-md-6">
-                                            <select class="form-control form-white" data-placeholder="Choose a color..." name="status">
-                                                <option value="success">Success</option>
-                                                <option value="danger">Danger</option>
-                                                <option value="info">Info</option>
-                                                <option value="primary">Primary</option>
-                                                <option value="warning">Warning</option>
-                                                <option value="inverse">Inverse</option>
+                                            <select class="form-control form-white form-white @error('country') is-invalid @enderror" name="country">
+                                                @if(isset($countries))
+                                                        <option value="" selected disabled>Select Country</option>
+                                                    @foreach($countries as $cont)
+                                                        <option>{{ $cont->nicename }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
+                                            <p class="log-error mt-1" id='country'></p>
                                         </div>
                                         <div class="col-md-6">
-                                           <select class="form-control form-white" data-placeholder="Choose a color..." name="country">
-                                                <option value="success">Success</option>
-                                                <option value="danger">Danger</option>
-                                                <option value="info">Info</option>
-                                                <option value="primary">Primary</option>
-                                                <option value="warning">Warning</option>
-                                                <option value="inverse">Inverse</option>
+                                           <select class="form-control form-white form-white @error('status') is-invalid @enderror" name="status">
+                                                <option value="0">Enable</option>
+                                                <option value="1">Disable</option>
                                             </select>
+                                            <p class="log-error mt-1" id='status'></p>
                                         </div>
                                     </div>
-                                </form>
+                                
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success btn-sm waves-effect waves-light save-category">Add</button>
+                                <button type="submit" class="btn btn-success btn-sm waves-effect waves-light save-category">Add</button>
                             </div>
+                        </form>
                         </div>
                     </div>
-                </div>
+            </div>
            <!-- USER FORM FINISH -->
 
+
+           <!-- USER UPDATE FORM  -->
+           <!-- ADD NEW USER FORM -->
+           <div class="modal fade none-border" id="update-old-user">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><strong>Update</strong> student</h4>
+                                <button type="button" class="close" onclick="location.reload()">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="update-user">
+                                    @csrf
+                                    <div class="row form-row">
+                                        <div class="col-md-6">
+                                            <input type="text" name="student_id" id="student_id">
+                                            <input class="form-control form-white @error('fnameupd') is-invalid @enderror"  placeholder="Enter first name" type="text" name="fnameupd" id='_fname' />
+                                            <p class="log-error mt-1" id='fnameupd'></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input class="form-control form-white form-white @error('lnameupd') is-invalid @enderror" placeholder="Enter last name" type="text" name="lnameupd" id='_lname'/>
+                                            <p class="log-error mt-1" id='lnameupd'></p>
+                                        </div>
+
+                                    </div>
+                                    <div class="row form-row">
+                                        <div class="col-md-6">
+                                            <input class="form-control form-white form-white @error('emailupd') is-invalid @enderror" placeholder="Enter email" type="email" name="emailupd" id="_email"/>
+                                            <p class="log-error mt-1" id='emailupd'></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input class="form-control form-white form-white @error('mobileupd') is-invalid @enderror" placeholder="Enter mobile" type="text" name="mobileupd" id="_mobile"/>
+                                            <p class="log-error mt-1" id='mobileupd'></p>
+                                        </div>
+                                    </div>
+                                    <div class="row form-row">
+                                        <div class="col-md-6">
+                                            <select class="form-control form-white form-white @error('countryupd') is-invalid @enderror" id="_country" name="countryupd">
+                                                @if(isset($countries))
+                                                        
+                                                    @foreach($countries as $cont)
+                                                        <option>{{ $cont->nicename }}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                            <p class="log-error mt-1" id='countryupd'></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                           <select class="form-control form-white form-white @error('statusupd') is-invalid @enderror" name="statusupd" id="_status">
+                                                <option value="0">Verified</option>
+                                                <option value="1">Unverified</option>
+                                            </select>
+                                            <p class="log-error mt-1" id='statusupd'></p>
+                                        </div>
+                                    </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success btn-sm waves-effect waves-light save-category">Update</button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+            </div>
+           <!-- USER FORM FINISH -->
+           <!-- USER UPDATE FORM FINISH -->
+
+
+           <!-- CHANGE PASSWORD -->
+
+           <div class="modal fade none-border" id="change-password">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><strong>Change</strong> password</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="change-user-password">
+                                    @csrf
+                                    <div class="row form-row">
+                                        <div class="col-md-12">
+                                            <input class="form-control form-white @error('old_password') is-invalid @enderror"  placeholder="Enter your old password" type="password" name="old_password" id='password_field' />
+                                            <p class="log-error mt-1" id='old_password'></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-row">
+                                        <div class="col-md-12">
+                                            <input class="form-control form-white @error('new_password') is-invalid @enderror"  placeholder="Enter your new password" type="password" name="new_password" />
+                                            <p class="log-error mt-1" id='new_password'></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-row">
+                                        <div class="col-md-12">
+                                            <input class="form-control form-white @error('confirm_password') is-invalid @enderror"  placeholder="Confirm password" type="password" name="confirm_password" />
+                                            <p class="log-error mt-1" id='confirm_password'></p>
+                                        </div>
+                                    </div>
+                                    
+                                   
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success btn-sm waves-effect waves-light save-category">Change Password</button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+            </div>
+
+           <!-- CHANGE PASSWORD FINISH -->
            <!-- MODEL MATERIALS FINISH -->
+
+           <script type="text/javascript">
+               function showUpdateForm(studentObject){
+                    var status = '' ;
+                    var json_decoded_object = JSON.parse(studentObject);
+
+                    if(json_decoded_object.status == 0){
+                        status = 'Verified';
+                    }else{
+                        status = 'Unverfied';
+                    }
+                    $("#student_id").val(json_decoded_object.id);
+                    $("#_fname").val(json_decoded_object.fname);
+                    $("#_lname").val(json_decoded_object.lname);
+                    $("#_email").val(json_decoded_object.email);
+                    $("#_mobile").val(json_decoded_object.mobile);
+                    $("#_country").prepend($("<option selected></option>").attr("value", json_decoded_object.country).text(json_decoded_object.country));
+                    $("#_status").prepend($("<option selected></option>").attr("value", json_decoded_object.status).text(status));
+                    $('#update-old-user').modal({backdrop: 'static',keyboard: false});
+                }
+
+           </script>
 
             <footer class="footer text-center">
                 All Rights Reserved by <a href="http://143.110.180.70/">Dreambig-it.com</a> Designed and Developed by <a href="https://www.wissenhive.com/" target="_blank">Wissenhive</a>.
@@ -156,7 +299,8 @@
     <script src="{{ asset('web-assets/assets/libs/moment/min/moment.min.js') }}"></script>
     <script src="{{ asset('web-assets/assets/libs/fullcalendar/dist/fullcalendar.min.js') }}"></script>
     <script src="{{ asset('web-assets/dist/js/pages/calendar/cal-init.js') }}"></script>
-
+    <script type="text/javascript" src="{{ asset('app.js') }}"></script>
+    <script src="{{ asset('web-assets/assets/libs/toastr/build/toastr.min.js') }}"></script>
 </body>
 
 </html>

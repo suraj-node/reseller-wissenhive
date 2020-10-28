@@ -38,12 +38,12 @@
                                                             <td><a href="">1</a></td>
                                                             <td>
                                                                 @if($student->status == 0)
-                                                                <a href="" class="btn btn-danger btn-sm">Disable</a>
+                                                                <a href="{{ route('reseller.status-update-user', ['value'=>1, 'id'=>$student->id]) }}" class="btn btn-danger btn-sm">Unverify</a>
                                                                 @else
-                                                                <a href="" class="btn btn-success btn-sm">Enable</a>
+                                                                <a href="{{ route('reseller.status-update-user', ['value'=>0, 'id'=>$student->id]) }}" class="btn btn-success btn-sm">Verify</a>
                                                                 @endif
 
-                                                                <a href="" class="btn btn-primary btn-sm">Edit</a>
+                                                                <a href="javascript:void(0)" onclick="showUpdateForm('{{ $student }}')" class="btn btn-primary btn-sm">Edit</a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
