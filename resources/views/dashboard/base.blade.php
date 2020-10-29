@@ -143,7 +143,7 @@
                                     @csrf
                                     <div class="row form-row">
                                         <div class="col-md-6">
-                                            <input type="text" name="student_id" id="student_id">
+                                            <input type="hidden" name="student_id" id="student_id">
                                             <input class="form-control form-white @error('fnameupd') is-invalid @enderror"  placeholder="Enter first name" type="text" name="fnameupd" id='_fname' />
                                             <p class="log-error mt-1" id='fnameupd'></p>
                                         </div>

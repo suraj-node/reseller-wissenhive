@@ -7,9 +7,13 @@ use App\ResellerStudents;
 use Session;
 use DB;
 use Illuminate\Support\Facades\Config;
+use App\ActivityLoggerTrait;
 
 class UserController extends Controller
-{
+{   
+
+    use ActivityLoggerTrait;
+
     public function index(Request $request){
 
     	$reseller = Session::get(Config::get('constant.reseller_session_key'));
@@ -62,6 +66,10 @@ class UserController extends Controller
     	$create = ResellerStudents::create($data);
 
     	if($create){
+            $string = 'Added a new student '.ucfirst($request->fname);
+
+            $this->logActivity($string, $reseller->id, '0', 'Nothing to do');
+
     		return response()->json(['success'=>'Student successfully added', 200]);
     	}
 
@@ -105,6 +113,8 @@ class UserController extends Controller
     	$update = ResellerStudents::where('id',$request->student_id)->update($data);
 
     	if($update){
+            $string = 'Updated a existing student '.ucfirst($request->fnameupd);
+            $this->logActivity($string, $reseller->id, '0', 'Nothing to do');
     		return response()->json(['success'=>'Student successfully updated', 200]);
     	}
 
@@ -112,10 +122,16 @@ class UserController extends Controller
 
     public function updateUserStatus($value, $id){
 
-    		$update = ResellerStudents::where('id',$id)->update(['status'=>$value]);
-
-    		return redirect()->route('reseller.users')->with(['success'=>'Status successfully updated']);
-    	
-
+            $reseller = Session::get(Config::get('constant.reseller_session_key'));
+    		$student = ResellerStudents::where('id',$id);
+            $changeValue = $student->update(['status'=>$value]);
+            if($changeValue){
+                $status = $value == 0 ? 'Verifed':'Not Verifed';
+                $studentName = $student->first()->fname.' '.$student->first()->lname;
+                $string = 'Updated the status of '.$studentName;
+                $this->logActivity($string, $reseller->id, '0', 'Nothing to do');
+                return redirect()->route('reseller.users')->with(['success'=>'Status successfully updated']);    
+            } 
+        
     }
 }

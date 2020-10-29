@@ -38,14 +38,15 @@ Route::group(['middleware'=>'isResellerLoggedIn', 'prefix'=>'reseller'], functio
 	Route::get('/logout', ['uses'=>'AuthController@logout', 'as'=>'reseller.logout']);
 
 	Route::post('/verify-old-password', ['uses'=>'AuthController@verifyPassword', 'as'=>'reseller.verify-old-password']);
-	Route::post('/verify-old-password', ['uses'=>'AuthController@verifyPassword', 'as'=>'reseller.forced-logout']);
-	Route::get('/forced-logout', ['uses'=>'AuthController@forcedLogout', 'as'=>'reseller.update-user']);
+	
+	Route::get('/forced-logout', ['uses'=>'AuthController@forcedLogout', 'as'=>'reseller.forced-logout']);
 
 	//USERS
 
 	Route::get('/users', ['uses'=>'UserController@index', 'as'=>'reseller.users']);
 	Route::get('/enrollment', ['uses'=>'UserController@enrollment', 'as'=>'reseller.enrollment']);
 	Route::post('/add-user', ['uses'=>'UserController@addNewuser', 'as'=>'reseller.add-user']);
+	Route::post('/update-user', ['uses'=>'UserController@updateStudent', 'as'=>'reseller.update-user']);
 	Route::get('/status-update-user/{value}/{id}', ['uses'=>'UserController@updateUserStatus', 'as'=>'reseller.status-update-user']);
 });
 	
