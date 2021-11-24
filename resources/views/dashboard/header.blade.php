@@ -6,14 +6,10 @@
                     
                     <a class="navbar-brand" href="index.html">
                     
-                        <b class="logo-icon p-l-10">
-                    
-                            <img src="{{ asset('web-assets/assets/images/icon.ico') }}" height="50" alt="homepage" class="light-logo" />
-                           
-                        </b>
+                        
                         
                         <span class="logo-text mt-3">
-                             <h3>Wiss<span style="color:#27a9e3">enhive</span></h3>
+                            <img src="https://wissenhivedatastorage.nyc3.digitaloceanspaces.com/my_storage_key/liveimage/1628582434.png" class="img-fluid" alt="">
                         </span>
                         
                     </a>
@@ -45,7 +41,7 @@
                             </form>
                         </li> -->
                          <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ Config::get('constant.logo_url').'/'.Session::get('reseller')->logo }}" alt="user" width="100" height="60">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ Config::get('constant.SPACE').'/'.Session::get('reseller')->logo }}" alt="user" width="100" height="60">
                             </a>
                             
                         </li>
@@ -73,10 +69,10 @@
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Session::get('reseller')->company_name }}</a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
                               
-                                <a class="dropdown-item" href="{{ route('reseller.logout') }}"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                                
                                 <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#change-password"><i class="mdi mdi-account-key m-r-5 m-l-5"></i> Change Password</a>
                               
+                               <a class="dropdown-item" href="{{ route('reseller.logout') }}"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>	
+                              	
                             </div>
                         </li>
                       

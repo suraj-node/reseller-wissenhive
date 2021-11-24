@@ -55,7 +55,7 @@ class AuthController extends Controller
 
     				Session::put(Config::get('constant.reseller_session_key'), $reseller->first());
 
-                    $this->logActivity('Login at reseller portal', $reseller->first()->id, '0', 'Nothing to do');
+                    $this->logActivity('Login at reseller portal', $reseller->first()->id, '0', 'Nothing to do','reseller');
 
     				return redirect()->route('reseller.dashboard')->with(['success'=>'Welcome back']);
 
@@ -79,7 +79,7 @@ class AuthController extends Controller
     		
     		$url = Session::get(Config::get('constant.reseller_session_key'));
     		$url_string = Session::get(Config::get('constant.reseller_session_key'))->url;
-    		$this->logActivity('Logout at reseller portal', $url->id, '0', 'Nothing to do');
+    		$this->logActivity('Logout at reseller portal', $url->id, '0', 'Nothing to do','reseller');
             session()->forget(Config::get('constant.reseller_session_key'));
             session()->flush();
             return redirect()->route('web.login', ['company_name'=>$url_string])->with('success', 'You have been successfully Logged-out');
@@ -104,7 +104,7 @@ class AuthController extends Controller
             $update = Resellers::where('id',$reseller->id)->update(['password'=>Hash::make($request->new_password)]);
 
             if($update){
-                $this->logActivity('Change password at reseller portal', $reseller->id, $reseller->id, 'Nothing to do');
+                $this->logActivity('Change password at reseller portal', $reseller->id, $reseller->id, 'Nothing to do','reseller');
                 return response()->json(['done'=>'1', 200]);
             }
 

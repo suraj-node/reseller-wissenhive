@@ -8,8 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('web-assets/assets/images/icon.ico') }}">
-    <title>WissenHive for business</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="https://www.wissenhive.com/web-assets/img/logos/icon.png">
+    <title> Business with Wissenhive</title>
     <!-- Custom CSS -->
     <link href="{{ asset('web-assets/dist/css/style.min.css') }}" rel="stylesheet">
     <link href="{{ asset('web-assets/dist/css/login.css') }}" rel="stylesheet">
@@ -31,8 +31,8 @@
                 <div class="col-xl-7 col-lg-7 col-md-7 login-left">
                     <div class="row">
                         <div class="col">
-                            <a href="#" class="logo_anchor">
-                                <img src="{{ asset('web-assets/assets/images/logo.png') }}" class="login_logo" alt=""><span>for
+                            <a href="https://www.wissenhive.com/" target="_blank" class="logo_anchor">
+                                <img src="https://wissenhivedatastorage.nyc3.digitaloceanspaces.com/my_storage_key/liveimage/1628582434.png" class="login_logo" alt=""><span>for
                                     business</span>
                             </a>
                         </div>
@@ -40,10 +40,10 @@
                     
                     <div class="row py-5 headings_login">
                         <div class="col mt-3">
-                            <img src="{{ Config::get('constant.logo_url').'/'.$reseller->logo }}"
+                            <img src="{{ Config::get('constant.SPACE').'/'.$reseller->logo }}"
                                 class="client_logo" alt="">
                             <h1>WissenHive understands! </h1>
-                            <p>Edureka offers it Corporate clientele the most engaging and reliable online learning
+                            <p>WissenHive offers it Corporate clientele the most engaging and reliable online learning
                                 platform. </p>
                         </div>
                     </div>
@@ -99,11 +99,11 @@
                         <div class="col">
                             <ul class="d-flex align-items-center justify-content-center list-style-none calltop">
                                 <li class="">
-                                    <i class="fas fa-phone"></i><a
+                                    <i class="fas fa-envelope"></i><a
                                         href="mailto:corp@wissenhive.co">corp@wissenhive.co</a>
                                 </li>
                                 <li class="ml-4">
-                                    <i class="far fa-envelope"></i><a href="callto:+91 8888888888">+91 888 888 8888 </a>
+                                    <i class="far fa-phone"></i><a href="callto:+91 8888888888">+91 888 888 8888 </a>
                                 </li>
                             </ul>
                         </div>

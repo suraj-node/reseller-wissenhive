@@ -22,18 +22,13 @@ class UserController extends Controller
 
     		$reseller_id = $reseller->id;
     		
-    		$students = ResellerStudents::where('added_by',$reseller_id)->orderBy('fname','ASC')->get();
+    		$students = ResellerStudents::with('course_taken')->where('added_by',$reseller_id)->orderBy('fname','ASC')->get();
 
     		return view('dashboard.students', ['students'=>$students]);
     	}
     }
 
-    public function enrollment(Request $request){
-
-    	return view('dashboard.enroll');
-
-    }
-
+    
     public function addNewuser(Request $request){
 
     	$reseller = Session::get(Config::get('constant.reseller_session_key'));
@@ -68,7 +63,7 @@ class UserController extends Controller
     	if($create){
             $string = 'Added a new student '.ucfirst($request->fname);
 
-            $this->logActivity($string, $reseller->id, '0', 'Nothing to do');
+            $this->logActivity($string, $reseller->id, '0', 'Nothing to do','reseller');
 
     		return response()->json(['success'=>'Student successfully added', 200]);
     	}
@@ -114,7 +109,7 @@ class UserController extends Controller
 
     	if($update){
             $string = 'Updated a existing student '.ucfirst($request->fnameupd);
-            $this->logActivity($string, $reseller->id, '0', 'Nothing to do');
+            $this->logActivity($string, $reseller->id, '0', 'Nothing to do','reseller');
     		return response()->json(['success'=>'Student successfully updated', 200]);
     	}
 
@@ -129,9 +124,10 @@ class UserController extends Controller
                 $status = $value == 0 ? 'Verifed':'Not Verifed';
                 $studentName = $student->first()->fname.' '.$student->first()->lname;
                 $string = 'Updated the status of '.$studentName;
-                $this->logActivity($string, $reseller->id, '0', 'Nothing to do');
+                $this->logActivity($string, $reseller->id, '0', 'Nothing to do','reseller');
                 return redirect()->route('reseller.users')->with(['success'=>'Status successfully updated']);    
             } 
         
     }
 }
+

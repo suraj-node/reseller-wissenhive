@@ -48,5 +48,18 @@ Route::group(['middleware'=>'isResellerLoggedIn', 'prefix'=>'reseller'], functio
 	Route::post('/add-user', ['uses'=>'UserController@addNewuser', 'as'=>'reseller.add-user']);
 	Route::post('/update-user', ['uses'=>'UserController@updateStudent', 'as'=>'reseller.update-user']);
 	Route::get('/status-update-user/{value}/{id}', ['uses'=>'UserController@updateUserStatus', 'as'=>'reseller.status-update-user']);
+	
+	//ENROLLMENT
+
+	Route::get('/enrollment', ['uses'=>'EnrollmentController@index', 'as'=>'reseller.enrollment']);
+	Route::get('/get-course', ['uses'=>'EnrollmentController@getCourse', 'as'=>'reseller.get-coursebytype']);
+	Route::get('/get-schedule', ['uses'=>'EnrollmentController@getSchedule', 'as'=>'reseller.get-schedulebytype']);
+	Route::get('/get-amount', ['uses'=>'EnrollmentController@getAmount', 'as'=>'reseller.get-amountbytype']);
+	Route::post('/assign-course', ['uses'=>'EnrollmentController@assignCourse', 'as'=>'reseller.assign-course']);
+	Route::get('/affiliate-report', ['uses'=>'EnrollmentController@affiliateReport', 'as'=>'reseller.affiliate-report']);
+	
+	//COURSE
+	Route::get('/course', ['uses'=>'CourseController@index', 'as'=>'reseller.courses']);	
+	
 });
 	

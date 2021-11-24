@@ -1,15 +1,21 @@
 $(function(){
 
 
-	var APP_URL = $("#base").val();
+	var APP_URL			= $("#base").val();
 
-	var ADD_USER_URL = APP_URL+'/reseller/add-user';
+	var ADD_USER_URL 	= APP_URL+'/reseller/add-user';
 
 	var UPDATE_USER_URL = APP_URL+'/reseller/update-user';
 
-	var VERIFY_EMAIL = APP_URL+'/reseller/verify-old-password';
+	var VERIFY_EMAIL 	= APP_URL+'/reseller/verify-old-password';
 
-	var FORCED_LOGOUT = APP_URL+'/reseller/forced-logout';
+	var FORCED_LOGOUT 	= APP_URL+'/reseller/forced-logout';
+
+	var GET_COURSE_URL 	= APP_URL+'/reseller/get-course';
+
+	var ENROLLMENT		= APP_URL+'/reseller/assign-course';
+	
+	var AFFILIATE_URL   = APP_URL+'/reseller/affiliate-report';
 	
 	$("#add-user").on('submit', function(e){
 		e.preventDefault();
@@ -108,6 +114,50 @@ $(function(){
 
 			}
 
+
+		});
+
+	});
+
+	$("#assign-form").on('submit', function(e){
+
+		e.preventDefault();
+		$(".spinner-border").show();
+		$.ajax({
+
+			url 	: ENROLLMENT,
+			method	: 'POST',
+			data 	: $("#assign-form").serialize(),
+			success:function(response){
+				if(response.error_msg){
+					var htmlMsg = "<div class='alert alert-danger' role='alert'>"+response.error_msg+"</div>";
+					$("#messages").html(htmlMsg);
+					$(".spinner-border").hide();
+				}
+
+				if(response.success_msg){
+					var htmlMsg = "<div class='alert alert-success' role='alert'>"+response.success_msg+"</div>";
+					$("#messages").html(htmlMsg);	
+					setTimeout(function(){
+						window.location.href = AFFILIATE_URL;
+					},2000);
+				}
+			},
+			error:function(response){
+
+
+				var err = response.responseJSON;
+						$.each(err.errors, function(key, value){
+
+		                    $("#"+key).html(value);
+		                    setTimeout(function(){
+		                        $("#"+key).html('');
+		                    }, 3000);
+		         });
+			
+				$(".spinner-border").hide();
+			
+			}
 
 		});
 

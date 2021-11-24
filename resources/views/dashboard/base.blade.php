@@ -16,15 +16,47 @@
     <link href="{{ asset('web-assets/assets/extra-libs/calendar/calendar.css') }}" rel="stylesheet" />
     <link href="{{ asset('web-assets/assets/libs/toastr/build/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('web-assets/dist/css/style.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('web-assets/assets/libs/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('web-assets/dist/datatable/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('web-assets/dist/datatable/css/buttons.bootstrap4.min.css') }}">
     <style>
-        .dataTables_filter {float:right;}
+        /*.dataTables_filter {float:right;}
         #zero_config_paginate{float: right !important;}
         .table-responsive thead {background: cadetblue; color:white;}
         .table-responsive tfoot {background: cadetblue; color:white;}
-        table{font-size:12px;}
+        table{font-size:12px;}*/
         .form-row{margin-top:5%}
-        .log-error{color:red;font-size:13px;}
-    </style>
+        .log-error{color:red;font-size:12px;font-weight: bold;}
+   
+    
+        .spinner-border {
+        display: inline-block;
+        width: 1.5rem;
+        height: 1.5rem;
+        vertical-align: text-bottom;
+        border: .25em solid currentColor;
+        border-right-color: rgb(0 0 0 / 0%);
+        border-radius: 50%;
+        -webkit-animation: spinner-border .75s linear infinite;
+        animation: spinner-border .75s linear infinite;
+        }
+        @keyframes spinner-border {
+        to { transform: rotate(360deg); }
+        }
+
+        .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        white-space: nowrap;
+        border: 0;
+        }
+        .show {display:block;}
+        .hide {display:none;}
+</style>
 </head>
 
 <body>
@@ -264,7 +296,7 @@
 
            </script>
 
-            <footer class="footer text-center">
+            <footer class="footer text-center fixed-bottom mt-5">
                 All Rights Reserved by <a href="http://143.110.180.70/">Dreambig-it.com</a> Designed and Developed by <a href="https://www.wissenhive.com/" target="_blank">Wissenhive</a>.
             </footer>
             
@@ -290,10 +322,21 @@
     <!-- this page js -->
 
     <!-- DATATABLE -->
-    <script src="{{ asset('web-assets/assets/extra-libs/multicheck/datatable-checkbox-init.js') }}"></script>
+    <!-- <script src="{{ asset('web-assets/assets/extra-libs/multicheck/datatable-checkbox-init.js') }}"></script>
     <script src="{{ asset('web-assets/assets/extra-libs/multicheck/jquery.multicheck.js') }}"></script>
     <script src="{{ asset('web-assets/assets/extra-libs/DataTables/datatables.min.js') }}"></script>
-    <script type="text/javascript">$('#zero_config').DataTable();</script>
+    <script type="text/javascript">$('#zero_config').DataTable();</script> -->
+    <script src="{{ asset('web-assets/dist/datatable/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('web-assets/dist/datatable/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('web-assets/dist/datatable/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('web-assets/dist/datatable/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('web-assets/dist/datatable/js/jszip.min.js') }}"></script>
+    <script src="{{ asset('web-assets/dist/datatable/js/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('web-assets/dist/datatable/js/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('web-assets/dist/datatable/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('web-assets/dist/datatable/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('web-assets/dist/datatable/js/buttons.colVis.min.js') }}"></script>
+
     <!-- DATATABLE FINISH -->
 
     <script src="{{ asset('web-assets/assets/libs/moment/min/moment.min.js') }}"></script>
@@ -301,6 +344,45 @@
     <script src="{{ asset('web-assets/dist/js/pages/calendar/cal-init.js') }}"></script>
     <script type="text/javascript" src="{{ asset('app.js') }}"></script>
     <script src="{{ asset('web-assets/assets/libs/toastr/build/toastr.min.js') }}"></script>
+    <script src="{{ asset('web-assets/assets/libs/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('web-assets/assets/libs/select2/dist/js/select2.min.js') }}"></script>
+    <script type="text/javascript">
+        $(".select2").select2();
+    </script>
+
+        <script type="text/javascript">
+        $(document).ready(function() {
+            var newDate = new Date();
+            var substring = newDate.getHours()+'-'+newDate.getMinutes()+'-'+newDate.getSeconds();
+            var table = $('#data_table').DataTable( {
+            
+                lengthChange: false,
+                responsive: true,
+                text: 'Export',
+                "aLengthMenu": [[25, 50, 75, -1], [25, 50, 75, "All"]],
+                "iDisplayLength": 10,
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'exl-export-'+substring,
+
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'pdf-export-'+substring
+                    },
+                    {
+
+                       extend: 'colvis',
+                    }
+                ]
+            
+            } );
+         
+            table.buttons().container()
+                .appendTo( '#data_table_wrapper .col-md-6:eq(0)' );
+        } );
+    </script>
 </body>
 
 </html>

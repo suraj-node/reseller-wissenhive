@@ -8,5 +8,5 @@ class ActivityLogger extends Model
 {
     public $table = 'recent_activity_logger';
 
-    protected $fillable = ['activity','done_by','object_id', 'action'];
+    protected $fillable = ['activity','done_by','object_id', 'action','module'];
 }

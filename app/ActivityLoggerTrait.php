@@ -8,10 +8,10 @@ use App\ActivityLogger;
 
 trait ActivityLoggerTrait{
 
-	public function logActivity($activity, $doneby, $object_id, $action){
+	public function logActivity($activity, $doneby, $object_id, $action, $module){
 
 
-		$store = array('activity' => $activity, 'done_by' => $doneby, 'object_id' => $object_id, 'action'=>$action );
+		$store = array('activity' => $activity, 'done_by' => $doneby, 'object_id' => $object_id, 'action'=>$action, 'module'=>$module );
 		
 		ActivityLogger::create($store);
 
