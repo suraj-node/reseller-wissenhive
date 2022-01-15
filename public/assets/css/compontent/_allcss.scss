@@ -1,0 +1,35 @@
+.app-card {
+	padding: 1rem;
+	.app-card-header {
+		background: $primary;
+		border-bottom-color: $primary;
+		margin-bottom: 1rem;
+		border-radius: 0.5rem;
+		h5 {
+			padding: 1rem;
+			margin: 0;
+		}
+	}
+}
+
+.app-header {
+	.app-user-dropdown {
+		img {
+			border-radius: 50%;
+		}
+	}
+}
+
+.app-attendance-sheet {
+	th,
+	tr,
+	td {
+		border: 1px solid #e7e9ed;
+		white-space: nowrap;
+		color: #5d6778;
+	}
+	td {
+		font-size: 14px;
+		font-weight: normal;
+	}
+}

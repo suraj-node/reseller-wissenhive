@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ResellersEnrollStudents extends Model
 {
-    protected $fillable = ['student_id','course_id','schedule_id','currency','amount','assign_by'];
+    protected $fillable = ['student_id','course_id','schedule_id','currency','amount','amount_status','assign_by','notify_admin','notify_reseller'];
     
     
      public function students(){
@@ -14,7 +14,7 @@ class ResellersEnrollStudents extends Model
     	return $this->hasMany('App\ResellerStudents', 'id', 'student_id');
 
     }
-
+    
     public function course(){
 
     	return $this->hasMany('App\Course', 'id', 'course_id');

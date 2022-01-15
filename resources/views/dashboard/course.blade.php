@@ -26,7 +26,7 @@
                                             <tr>
                                                 <th>Sr.</th>
                                                 <th>Course Name</th>
-                                                <th>Total Enrollments</th>
+                                                <th>Course Amount</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -37,8 +37,10 @@
                                                     @foreach($courses as $course)
                                                         <tr>
                                                             <td>{{ $count++ }}</td>
-                                                            <td>{{ $course[0]->course[0]->title }}</td>
-                                                            <td>{{ count($course) }}</td>
+                                                            {{--<td>{{ $course[0]->course[0]->title }}</td>
+                                                            <td>{{ count($course) }}</td>--}}
+                                                            <td>{{ $course->title }}</td>
+                                                            <td>{{ $course->amount }}</td>
                                                         </tr>
                                                     @endforeach
                                                 @endif

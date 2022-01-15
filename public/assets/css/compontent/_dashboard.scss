@@ -1,0 +1,256 @@
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  color: $secondary;
+}
+.app {
+  background-color: $primary;
+}
+
+.app-sidepanel {
+  .app-branding {
+    height: 55px;
+    background: $primary;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding-top: 0;
+    padding-left: 0;
+    margin-bottom: 0;
+    .app-logo {
+      .logo-icon {
+        height: auto;
+        width: 60%;
+      }
+    }
+  }
+}
+
+.app-header {
+  // background-color: darken($theme-color-primary, 30%);
+  background-color: $primary2;
+  border-bottom-color: $primary;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+.app-sidepanel {
+  border-color: $primary2;
+  .sidepanel-inner {
+    background-color: $primary2;
+  }
+}
+
+.app-nav {
+  .nav-item {
+    // background-color: darken($theme-color-primary, 30%);
+    background-color: $primary;
+    .nav-link {
+      color: $smoky-white;
+    }
+    .nav-link.active {
+      background-color: lighten($secondary, 10%);
+      border-color: darken($secondary, 50%);
+      color: $primary;
+      font-weight: bold;
+    }
+  }
+}
+.app-card {
+  background-color: $primary2;
+}
+.border-left-decoration {
+  border-left-color: $secondary !important;
+}
+
+.app-card-stat {
+  .stats-type {
+    color: $textColor;
+  }
+  .stats-figure {
+    color: $secondary;
+  }
+}
+
+.app-card-orders-table {
+  .table {
+    .cell {
+      color: $textColor;
+      border-color: $primary;
+    }
+  }
+}
+.dataTables_wrapper {
+  .table {
+    thead {
+      .cell {
+        border-color: $primary2;
+      }
+    }
+  }
+}
+
+.dataTables_wrapper tbody > tr:hover {
+  background-color: $primary;
+}
+
+.form-floating {
+  label {
+    color: $textColor;
+  }
+  .form-control {
+    background-color: $primary;
+    border-color: $primary2;
+    color: $textColor;
+    &:focus {
+      border-color: lighten($secondary, 10%);
+    }
+  }
+}
+
+.input-group {
+  .input-group-text {
+    background: $primary;
+    border-color: $primary;
+    color: $textColor;
+  }
+  .form-control {
+    background-color: $primary;
+    border-color: $primary2;
+    color: $textColor;
+  }
+}
+
+.app_login {
+  height: 100vh;
+  overflow: hidden;
+  .app_login__left {
+    height: 100vh;
+    background-color: darken($primary, 10%);
+    .app_login_block {
+      padding: 50px 30px;
+      padding-top: 25px;
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      .app_logo_layout {
+        a {
+          text-decoration: none;
+          h4 {
+            color: darken($secondary, 10%);
+            transition: 0.3s;
+            &:hover {
+              color: $secondary;
+            }
+          }
+          img {
+            height: auto;
+            width: 50%;
+          }
+        }
+      }
+      .app_welcome_block {
+        text-align: center;
+        margin-top: 20%;
+        .app_welcome_text {
+          color: $white;
+        }
+        hr {
+          border-color: $secondary;
+          border-bottom: 2px solid;
+          background: $secondary;
+          height: 5px;
+        }
+        .app_signin_text {
+          color: $white;
+        }
+      }
+      .app_form_layout {
+        margin-top: 10%;
+        .form-floating {
+          .form-control {
+            background: transparent;
+            border-color: lighten($primary, 10%);
+            box-shadow: none;
+            color: lighten($secondary, 50%);
+            &:focus {
+              border-color: $secondary;
+              color: $secondary;
+            }
+            &::placeholder {
+            }
+          }
+          label {
+            color: $secondary;
+          }
+        }
+        .app_custom_btn {
+          background: lighten($secondary, 30%);
+          color: $primary;
+          font-weight: bold;
+          padding: 0.5rem 2rem;
+          margin-top: 1rem;
+          &:hover {
+            background: $secondary;
+          }
+        }
+      }
+      // .app_bottom_block {
+      //   .app_bottom_inner {
+      //     background: $primary2;
+      //     margin-bottom: 1rem;
+      //     padding: 0.5rem 1rem;
+      //     border-radius: 0.25rem;
+      //     h4 {
+      //       margin: 0;
+      //       font-size: 1rem;
+      //       color: $secondary;
+      //     }
+      //     p {
+      //       margin-bottom: 0;
+      //       font-size: 14px;
+      //       color: $white;
+      //     }
+      //   }
+      // }
+    }
+  }
+  .app_login__right {
+    background-image: url(https://wissenhivedatastorage.nyc3.digitaloceanspaces.com/my_storage_key/liveimage/1638356111.jpg);
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.401);
+    }
+    .app_inner_right_block {
+      padding: 50px 30px;
+      position: relative;
+      h2 {
+        color: $white;
+        span {
+          color: $secondary;
+          background-color: $primary;
+          padding: 0rem 1rem;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap");
+* {
+}
+body {
+	font-family: "Montserrat", sans-serif;
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='800' preserveAspectRatio='none' viewBox='0 0 1440 800'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1044%26quot%3b)' fill='none'%3e%3crect width='1440' height='800' x='0' y='0' fill='rgba(34%2c 35%2c 47%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c660.692C125.087%2c662.954%2c246.295%2c614.305%2c347.709%2c541.045C445.808%2c470.18%2c534.183%2c374.059%2c560.352%2c255.904C584.956%2c144.816%2c501.654%2c42.794%2c482.917%2c-69.433C464.772%2c-178.116%2c520.443%2c-305.324%2c452.208%2c-391.841C383.984%2c-478.345%2c255.276%2c-483.836%2c145.87%2c-496.787C50.063%2c-508.128%2c-41.307%2c-482.354%2c-135.482%2c-461.409C-236.814%2c-438.872%2c-360.899%2c-450.013%2c-426.428%2c-369.502C-491.998%2c-288.941%2c-445.319%2c-168.934%2c-457.492%2c-65.777C-469.265%2c33.995%2c-516.33%2c128.334%2c-496.803%2c226.882C-474.309%2c340.409%2c-426.894%2c452.489%2c-339.718%2c528.612C-246.309%2c610.177%2c-123.989%2c658.449%2c0%2c660.692' fill='%231c1d27'%3e%3c/path%3e%3cpath d='M1440 1092.959C1510.411 1094.527 1586.549 1158.292 1645.302 1119.4569999999999 1704.245 1080.496 1669.392 982.325 1702.116 919.704 1737.783 851.452 1853.864 818.297 1842.484 742.132 1831.079 665.8009999999999 1717.42 659.673 1656.2359999999999 612.63 1610.258 577.279 1579.885 526.226 1527.992 500.326 1468.581 470.674 1403.74 442.154 1338.405 453.999 1270.598 466.292 1216.734 515.4549999999999 1169.222 565.37 1119.923 617.163 1058.158 674.048 1060.939 745.499 1063.728 817.16 1151.262 853.055 1182.922 917.403 1213.177 978.8969999999999 1183.896 1071.791 1240.492 1110.44 1296.761 1148.865 1371.88 1091.442 1440 1092.959' fill='%23282937'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1044'%3e%3crect width='1440' height='800' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+	background-size: cover !important;
+	background-attachment: fixed !important;
+}
+.text-dark {
+	color: $theme-text-color-primary;
+}
+.cursor-pointer {
+	cursor: pointer;
+}
+.float-right {
+	float: right;
+}
+.text-right {
+	text-align: right;
+}
+.dropdown-active-color {
+	background: $theme-color-primary-lightest;
+}

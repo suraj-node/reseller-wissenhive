@@ -1,0 +1,25 @@
+#external-events h4 {
+  font-size: 16px;
+  margin-top: 0;
+  padding-top: 1em;
+}
+
+#external-events .fc-event {
+  margin: 3px 10px;
+  cursor: move;
+  padding: 5px;
+  width: 100px;
+  text-align: center;
+  float: left;
+}
+
+#external-events p {
+  margin: 1.5em 0;
+  font-size: 11px;
+  color: #666;
+}
+
+#external-events p input {
+  margin: 0;
+  vertical-align: middle;
+}

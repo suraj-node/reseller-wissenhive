@@ -9,7 +9,7 @@
                         
                         
                         <span class="logo-text mt-3">
-                            <img src="https://wissenhivedatastorage.nyc3.digitaloceanspaces.com/my_storage_key/liveimage/1628582434.png" class="img-fluid" alt="">
+                            <img src="https://wissenhivedatastorage.nyc3.digitaloceanspaces.com/my_storage_key/liveimage/1637907987.png" class="img-fluid" alt="">
                         </span>
                         
                     </a>
@@ -41,7 +41,7 @@
                             </form>
                         </li> -->
                          <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ Config::get('constant.SPACE').'/'.Session::get('reseller')->logo }}" alt="user" width="100" height="60">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('resellers/logo/').'/'.Session::get('reseller')->logo }}" alt="user" width="100" height="60">
                             </a>
                             
                         </li>
@@ -53,14 +53,14 @@
                        
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class='fa fa-envelope'></i>&nbsp;info@wissenhive.com
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class='fa fa-envelope'></i>&nbsp;corp@pinnacledu.com
                             </a>
                             
                         </li>
 
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class='fa fa-phone'></i>&nbsp;+91-1204229536
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class='fa fa-phone'></i>&nbsp;+91-8080857310
                             </a>
                             
                         </li>

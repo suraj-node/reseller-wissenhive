@@ -61,14 +61,14 @@ class EnrollmentController extends Controller
     }
 
     public function assignCourse(Request $request){
-
+       
         $validatedData = $request->validate([
                 '_student'     => 'required',
-                '_coursetype'  => 'required',
                 '_course'      => 'required',
-                '_currency'    => 'required',
                 '_amount'      => 'required',
-            ]);
+                '_schedule_id' => 'required',
+            ], ['_schedule_id.required'=>'Group training is required']);
+        
 
         $id = Session::get(Config::get('constant.reseller_session_key'))->id;
         
@@ -86,13 +86,15 @@ class EnrollmentController extends Controller
 
                         'student_id'  => $request->_student,
                         'course_id'   => $request->_course,
-                        'schedule_id' => $request->_schedule,
-                        'currency'    => $request->_currency,
+                        'schedule_id' => $request->_schedule_id,
+                        'currency'    => 'usd',
                         'amount'      => $request->_amount,
+                        'amount_status'=>$request->amount_status == 'on'? 0:1,
                         'assign_by'   => $id,
+                        'notify_admin'=> 1,
                     );
 
-
+            
             $ifExist_ = ResellersEnrollStudents::where('student_id',$request->_student)->where('course_id',$request->_course)->where('assign_by',$id);
             
             if($ifExist_->count() > 0){
@@ -100,112 +102,112 @@ class EnrollmentController extends Controller
                 return response()->json(['error_msg'=>'This student is already registered with this course']);
 
             }else{
-
                 $create = ResellersEnrollStudents::create($data);
+                
+                return response()->json(['success_msg'=>'User successfully assigned with selected course']);
 
-                if($create){
+                
+
+                // if($create){
                     
-                    $userCourseHistory = array(
+                //     $userCourseHistory = array(
 
-                                                'user_id'           =>  $request->_student,
-                                                'user_email'        =>  $student->email,
-                                                'course_id'         =>  $request->_course,
-                                                'course_type'       =>  $request->_coursetype,
-                                                'course_schedule'   =>  $request->_schedule,
-                                                'course_amount'     =>  $request->_amount,
-                                                'salt'              =>  $this->random_strings(20),
-                                                'is_payment'        =>  1,
-                                            );
+                //                                 'user_id'           =>  $request->_student,
+                //                                 'user_email'        =>  $student->email,
+                //                                 'course_id'         =>  $request->_course,
+                //                                 'course_type'       =>  $request->_coursetype,
+                //                                 'course_schedule'   =>  $request->_schedule,
+                //                                 'course_amount'     =>  $request->_amount,
+                //                                 'salt'              =>  $this->random_strings(20),
+                //                                 'is_payment'        =>  1,
+                //                             );
 
-                    $create_user_history = UserCourseHistory::create($userCourseHistory);
+                //     $create_user_history = UserCourseHistory::create($userCourseHistory);
 
-                    if($create_user_history){
+                //     if($create_user_history){
                         
-                        $UserPaymentHistory = array(
+                //         $UserPaymentHistory = array(
 
-                                                        'user_id'           =>  $request->_student,
-                                                        'course_id'         =>  $request->_course,
-                                                        'course_history_id' =>  $create_user_history->id,
+                //                                         'user_id'           =>  $request->_student,
+                //                                         'course_id'         =>  $request->_course,
+                //                                         'course_history_id' =>  $create_user_history->id,
 
-                                                   );
+                //                                    );
 
-                        $UserPaymentHistoryCreate = UserPaymentHistory::create($UserPaymentHistory);
+                //         $UserPaymentHistoryCreate = UserPaymentHistory::create($UserPaymentHistory);
 
-                        if($UserPaymentHistory){
+                //         if($UserPaymentHistory){
 
-                            $checkUser = User::where('email',$student->email)->count();
+                //             $checkUser = User::where('email',$student->email)->count();
 
-                            if(!$checkUser > 0){
+                //             if(!$checkUser > 0){
 
-                                $createUser = array(
+                //                 $createUser = array(
                                                 
-                                                'fname'             => $student->fname,
-                                                'lname'             => $student->lname,
-                                                'avatar'            => 'default.png',
-                                                'email'             =>  $student->email,
-                                                'password'          =>  Hash::make($this->random_strings(20)),
-                                                'country'           =>  $student->country,
-                                                'mobile'            =>  $student->mobile,
-                                                'dob'               =>  'None',
-                                                'gender'            =>  'None',
-                                                'ip_address'        =>  'None',
-                                                'status'            =>  0,
-                                                'user_type'         =>  0,
-                                                'email_verified_at' =>  Carbon::now(),
-                                                );
+                //                                 'fname'             => $student->fname,
+                //                                 'lname'             => $student->lname,
+                //                                 'avatar'            => 'default.png',
+                //                                 'email'             =>  $student->email,
+                //                                 'password'          =>  Hash::make($this->random_strings(20)),
+                //                                 'country'           =>  $student->country,
+                //                                 'mobile'            =>  $student->mobile,
+                //                                 'dob'               =>  'None',
+                //                                 'gender'            =>  'None',
+                //                                 'ip_address'        =>  'None',
+                //                                 'status'            =>  0,
+                //                                 'user_type'         =>  0,
+                //                                 'email_verified_at' =>  Carbon::now(),
+                //                                 );
 
-                                $userMake = User::create($createUser);
+                //                 $userMake = User::create($createUser);
 
-                            }
+                //             }
 
                             
-                            // CODE FOR MAIL
+                //             // CODE FOR MAIL
 
-                            $fullname = ucfirst($student->fname).' '.$student->lname;
+                //             $fullname = ucfirst($student->fname).' '.$student->lname;
 
-                            if($request->course_type == 1){
-                                $course_type = 'Selfpaced course';
-                            }else if($request->course_type == 2){
-                                $course_type = 'Live Virtual course';
-                            }else{
-                                $course_type = 'One On One Training';
-                            }
+                //             if($request->course_type == 1){
+                //                 $course_type = 'Selfpaced course';
+                //             }else if($request->course_type == 2){
+                //                 $course_type = 'Live Virtual course';
+                //             }else{
+                //                 $course_type = 'One On One Training';
+                //             }
 
-                            $sender_email   = Config::get('constant.email_config.sender_email');
-                            $reciver_email  = $student->email; 
-                            $subject        = Config::get('constant.email_config.course_assigned_subject');
+                //             $sender_email   = Config::get('constant.email_config.sender_email');
+                //             $reciver_email  = $student->email; 
+                //             $subject        = Config::get('constant.email_config.course_assigned_subject');
 
-                            $data = ['name'=>$fullname, 'assigner'=>ucfirst($assigner), 'date'=>Carbon::now(), 'course_type'=>$course_type, 'course_name'=>$course->title];
+                //             $data = ['name'=>$fullname, 'assigner'=>ucfirst($assigner), 'date'=>Carbon::now(), 'course_type'=>$course_type, 'course_name'=>$course->title];
                             
-                            Mail::send('emails.enroll', ['data' => $data], function ($m) use ($data, $sender_email, $reciver_email, $subject) {
-                                $m->from($sender_email, 'Wissenhive');
+                //             Mail::send('emails.enroll', ['data' => $data], function ($m) use ($data, $sender_email, $reciver_email, $subject) {
+                //                 $m->from($sender_email, 'Wissenhive');
     
-                                $m->to($reciver_email, $data['name'])->subject($subject);
-                            });
+                //                 $m->to($reciver_email, $data['name'])->subject($subject);
+                //             });
 
-                            // CODE FOR MAIL FINISHED
+                //             // CODE FOR MAIL FINISHED
 
-                            $string = $assigner.' Assigned a new course to '.$fullname;
+                //             $string = $assigner.' Assigned a new course to '.$fullname;
 
-                            $this->logActivity($string, $id, '0', 'Nothing to do', 'reseller');
-                            return response()->json(['success_msg'=>'User successfully assigned with selected course']);
+                            
+                //             return response()->json(['success_msg'=>'User successfully assigned with selected course']);
 
-                        }
+                //         }
 
-                    }
+                //     }
 
-                }else{
-                    return 'failed to added';
-                }
+                // }else{
+                //     return 'failed to added';
+                // }
 
             }
 
         }
 
-        }
-
-        
-
+      }
     }
 
 

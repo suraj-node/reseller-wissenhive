@@ -1,0 +1,102 @@
+.dataTables_wrapper {
+	.dropdown-menu {
+		font-size: 14px;
+		font-weight: bold;
+		padding: 0;
+		border-color: $primary2;
+	}
+	.dropdown-menu .dropdown-item.active,
+	.dropdown-menu .dropdown-item:active {
+		background: $primary;
+		color: $textColor;
+		&:hover {
+			background: $primary2;
+		}
+	}
+	.dt-buttons {
+		.btn-secondary {
+			background: $primary;
+			color: $textColor;
+			&:hover {
+				background: $primary2;
+			}
+		}
+	}
+	.dataTables_paginate {
+		.pagination {
+			.paginate_button.disabled {
+				cursor: not-allowed;
+				.page-link {
+					background-color: $primary2;
+					color: $textColor;
+					cursor: not-allowed;
+					font-size: 14px;
+				}
+			}
+		}
+		.page-item {
+			.page-link {
+				background-color: $primary;
+				border-color: $primary;
+				color: $textColor;
+				font-size: 14px;
+			}
+		}
+		.page-item.active {
+			background-color: $primary2;
+			color: $smoky-white;
+			.page-link {
+				background-color: $primary2;
+				border-color: $primary;
+				color: $smoky-white;
+				font-size: 14px;
+			}
+		}
+	}
+	.dataTables_info,
+	.dataTables_filter {
+		font-size: 12px;
+		font-weight: bold;
+		color: $textColor;
+		label {
+		}
+		.form-control {
+			background-color: $primary;
+			border-color: $primary2;
+			color: $textColor;
+		}
+	}
+	.table > thead {
+		background: $primary;
+		.cell {
+			color: $smoky-white;
+			border-right: 1px solid $textColor;
+		}
+	}
+	tbody > tr {
+		&:hover {
+			background: $primary;
+		}
+		.dtr-control {
+			border-right: 1px solid;
+		}
+	}
+	tbody td {
+		border-right: 1px solid;
+	}
+	.dataTables_scroll {
+		.dataTables_scrollHead {
+			.dataTables_scrollHeadInner {
+				width: 100% !important;
+				.table {
+					width: 100% !important;
+				}
+			}
+		}
+		.dataTables_scrollBody {
+			.table {
+				width: 100% !important;
+			}
+		}
+	}
+}

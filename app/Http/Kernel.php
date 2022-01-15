@@ -37,6 +37,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\HttpsProtocol::class
         ],
 
         'api' => [
@@ -65,5 +66,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isResellerLoggedIn' =>   \App\Http\Middleware\isResellerLoggedIn::class,
         'isResellerLoggedOut' =>   \App\Http\Middleware\isResellerLoggedOut::class,
+        'isAdminLoggedIn' =>   \App\Http\Middleware\isAdminLoggedIn::class,
+        'isAdminLoggedOut' =>   \App\Http\Middleware\isAdminLoggedOut::class,
     ];
 }

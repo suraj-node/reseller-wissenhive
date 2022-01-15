@@ -34,7 +34,7 @@
                                                     @if($users)
                                                         @if(count($users) > 0)
                                                             @foreach($users as $user)
-                                                                <option value="{{ $user->id }}">{{ $user->fname.' '.$user->lname }}</option>
+                                                                <option value="{{ $user->id }}">{{ $user->fname.' '.$user->lname}} <b>( {{ $user->email }} )</b></option>
                                                             @endforeach
                                                         @endif
                                                     @endif
@@ -44,21 +44,7 @@
                                         </div>
 
                                         <div class="col-md-6">
-                                            <select class="form-control" id="course_type" name="_coursetype" style="width: 100%; height:36px;">
-                                                <option value="" selected disabled>Select Course Type</option>
-                                                <option value="1">Selfpaced Classes</option>
-                                                <option value="2">Live Virtual Classes</option>
-                                                <option value="3">One On One Training</option>
-                                            </select>
-                                            <p class="log-error mt-1" id='_coursetype'></p>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group row">
-                                    
-                                        <div class="col-md-6">
-                                            <select class="select2 form-control custom-select" id="course_id" onchange="updateSchedule(this.value)" style="width: 100%; height:36px;" name='_course'>
+                                            <select class="select2 form-control custom-select" id="course_id" style="width: 100%; height:36px;" name='_course'>
                                                 <option value="">Select Course</option>
                                                 <optgroup label="Recommended Courses">
                                                     @if($courses)
@@ -73,32 +59,38 @@
                                             <p class="log-error mt-1" id='_course'></p>
                                         </div>
 
-                                        <div class="col-md-6">
-                                            <select class="form-control" id="course_schedule" name="_schedule" style="width: 100%; height:36px;" readonly>
-                                                <option value="0" selected disabled>Schedule type</option>
-                                            </select>
-                                            <p class="log-error mt-1" id='_schedule'></p>
-                                        </div>
+                                        
 
                                     </div>
 
                                     <div class="form-group row">
                                         
                                          <div class="col-md-6">
-                                            <select class="form-control" id="currency" name="_currency" onchange="getCurrency(this.value)" style="width: 100%; height:36px;">
-                                                <option value="" selected disabled>Select Currency</option>
-                                                <option value="1">INR</option>
-                                                <option value="2">USD</option>
+                                            <select class="form-control" id="currency" name="_schedule_id" style="width: 100%; height:36px;">
+                                                <option value=''>Select Training</option>
+                                                <option value="0">Group Training</option>
+                                                <option value="1">One on One Training</option>
+                                                <option value="2">Interview Prepration</option>
+                                                <option value="3">Project Support</option>
                                             </select>
-                                            <p class="log-error mt-1" id='_currency'></p>
+                                            <p class="log-error mt-1" id='_schedule_id'></p>
                                         </div>
-
+                                        
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" id="amount" name="_amount" placeholder="Amount to be paid" readonly="">
+                                            <input type="text" class="form-control" id="amount" name="_amount" placeholder="Amount to be paid" autocomplete='off'>
                                             <p class="log-error mt-1" id='_amount'></p>
                                         </div>
 
                                     </div>
+
+
+                                    <div class="form-group row">
+                                        
+                                        <div class="col-md-6">
+                                           <input type="checkbox" name="amount_status"> &nbsp;Check if amount is paid
+                                           <p class="log-error mt-1" id='_amount_status'></p>
+                                       </div>
+                                   </div>
                                    
                                 </div>
                                 <div class="border-top">

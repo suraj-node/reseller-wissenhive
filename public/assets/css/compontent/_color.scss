@@ -1,0 +1,25 @@
+/*************************** Theme Colours****************************/
+// Define theme colour scheme
+$theme-color-primary: #22232f;
+$theme-text-color-primary: #252930;
+$theme-text-color-secondary: lighten($theme-text-color-primary, 25%);
+$theme-text-color-light: lighten($theme-text-color-primary, 40%);
+$theme-color-primary-lightest: #caf9e4;
+$theme-color-primary-light: #edfdf6;
+$theme-bg-light: #f5f6fe;
+$theme-border-color: lighten($theme-text-color-primary, 75%);
+$theme-color-new: #38f68e;
+$theme-color-count: #ec776c;
+$theme-error: #ec575b;
+$smoky-white: #f5f5f5;
+$theme-success-color: #38f68e;
+$theme-warning-color: #eebf41;
+$theme-info-color: #5b99ea;
+$theme-danger-color: #d26d69;
+$white: #fff;
+
+$primary: #303041;
+$primary2: #3d3a50;
+// $secondary: #60b0f4;
+$secondary: #0ea2f6;
+$textColor: #bdd3f7;

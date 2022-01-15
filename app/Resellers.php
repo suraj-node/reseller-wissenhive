@@ -6,6 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Resellers extends Model
 {
-    protected $fillable = ['email','password','company_name','logo','url','status'];
-
+    protected $fillable = ['email','password','company_name','logo','url', 'profit', 'type' ,'status'];
 }

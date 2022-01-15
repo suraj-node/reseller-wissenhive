@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('web-assets/assets/images/icon.ico') }}">
-    <title>Reseller Dashboard</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="https://wissenhivedatastorage.nyc3.digitaloceanspaces.com/my_storage_key/liveimage/1637908115.png">
+    <title>Pinnacledu Reseller Dashboard</title>
     
     <link href="{{ asset('web-assets/assets/libs/fullcalendar/dist/fullcalendar.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('web-assets/assets/extra-libs/calendar/calendar.css') }}" rel="stylesheet" />
@@ -56,6 +56,8 @@
         }
         .show {display:block;}
         .hide {display:none;}
+        #if_opportunity{display:none}
+        #if_sales{display:none}
 </style>
 </head>
 
@@ -129,8 +131,18 @@
                                             <p class="log-error mt-1" id='mobile'></p>
                                         </div>
                                     </div>
+
+
                                     <div class="row form-row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
+                                            <input class="form-control form-white form-white @error('linkedin_url') is-invalid @enderror" placeholder="Enter linkedin url" type="text" name="linkedin_url" autocomplete="off"/>
+                                            <p class="log-error mt-1" id='linkedin_url'></p>
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="row form-row">
+                                        <div class="col-md-12">
                                             <select class="form-control form-white form-white @error('country') is-invalid @enderror" name="country">
                                                 @if(isset($countries))
                                                         <option value="" selected disabled>Select Country</option>
@@ -141,14 +153,59 @@
                                             </select>
                                             <p class="log-error mt-1" id='country'></p>
                                         </div>
-                                        <div class="col-md-6">
-                                           <select class="form-control form-white form-white @error('status') is-invalid @enderror" name="status">
-                                                <option value="0">Enable</option>
-                                                <option value="1">Disable</option>
+                                        {{--<div class="col-md-6">
+                                           <select class="form-control  form-white form-white @error('type') is-invalid @enderror" id="_type" name="type">
+                                                <option value="0">Student</option>
+                                                <option value="1">Opportunity</option>
+                                                <option value="2">Sales</option>
                                             </select>
-                                            <p class="log-error mt-1" id='status'></p>
+                                            <p class="log-error mt-1" id='type'></p>
+                                        </div>--}}
+                                        <input type="hidden" value="0" name="type">
+                                    </div>
+
+                                    
+
+
+                                    {{--<div id="if_opportunity">
+                                        <div class="row form-row">
+                                            <div class="col-md-6">
+                                                <input class="form-control form-white form-white @error('coated_amount') is-invalid @enderror" placeholder="Enter quoted amount" type="number" name="coated_amount" />
+                                                <p class="log-error mt-1" id='coated_amount'></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input class="form-control form-white form-white @error('interested_course') is-invalid @enderror" placeholder="Enter course name" type="text" name="interested_course" />
+                                                <p class="log-error mt-1" id='interested_course'></p>
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <div id="if_sales">
+                                        <div class="row form-row">
+                                            <div class="col-md-6">
+                                                <input class="form-control form-white form-white @error('sales_amount') is-invalid @enderror" placeholder="Enter sales amount" type="number" name="sales_amount" />
+                                                <p class="log-error mt-1" id='sales_amount'></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input class="form-control form-white form-white @error('amount_paid') is-invalid @enderror" placeholder="Amount paid" type="number" name="amount_paid" />
+                                                <p class="log-error mt-1" id='amount_paid'></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row form-row">
+                                            <div class="col-md-6">
+                                                <input class="form-control form-white form-white @error('balance') is-invalid @enderror" placeholder="Balance" type="number" name="balance" />
+                                                <p class="log-error mt-1" id='balance'></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control  form-white form-white @error('mode_of_payment') is-invalid @enderror" name="mode_of_payment">
+                                                    <option value="0">Stripe</option>
+                                                    <option value="1">Paypal</option>
+                                                    <option value="2">Bank Transfer</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>--}}
                                 
                             </div>
                             <div class="modal-footer">
@@ -177,24 +234,32 @@
                                         <div class="col-md-6">
                                             <input type="hidden" name="student_id" id="student_id">
                                             <input class="form-control form-white @error('fnameupd') is-invalid @enderror"  placeholder="Enter first name" type="text" name="fnameupd" id='_fname' />
-                                            <p class="log-error mt-1" id='fnameupd'></p>
+                                            <p class="log-error mt-1" id='fnameupderr'></p>
                                         </div>
                                         <div class="col-md-6">
                                             <input class="form-control form-white form-white @error('lnameupd') is-invalid @enderror" placeholder="Enter last name" type="text" name="lnameupd" id='_lname'/>
-                                            <p class="log-error mt-1" id='lnameupd'></p>
+                                            <p class="log-error mt-1" id='lnameupderr'></p>
                                         </div>
 
                                     </div>
                                     <div class="row form-row">
                                         <div class="col-md-6">
                                             <input class="form-control form-white form-white @error('emailupd') is-invalid @enderror" placeholder="Enter email" type="email" name="emailupd" id="_email"/>
-                                            <p class="log-error mt-1" id='emailupd'></p>
+                                            <p class="log-error mt-1" id='emailupderr'></p>
                                         </div>
                                         <div class="col-md-6">
                                             <input class="form-control form-white form-white @error('mobileupd') is-invalid @enderror" placeholder="Enter mobile" type="text" name="mobileupd" id="_mobile"/>
-                                            <p class="log-error mt-1" id='mobileupd'></p>
+                                            <p class="log-error mt-1" id='mobileupderr'></p>
                                         </div>
                                     </div>
+
+                                    <div class="row form-row">
+                                        <div class="col-md-12">
+                                            <input class="form-control form-white form-white @error('linkedin_urlupd') is-invalid @enderror" placeholder="Enter linkedin url" type="text" id="linkedin_urlupd" name="linkedin_urlupd" autocomplete="off"/>
+                                            <p class="log-error mt-1" id='linkedin_urlupderr'></p>
+                                        </div>
+                                    </div>
+
                                     <div class="row form-row">
                                         <div class="col-md-6">
                                             <select class="form-control form-white form-white @error('countryupd') is-invalid @enderror" id="_country" name="countryupd">
@@ -205,18 +270,64 @@
                                                     @endforeach
                                                 @endif
                                             </select>
-                                            <p class="log-error mt-1" id='countryupd'></p>
+                                            <p class="log-error mt-1" id='countryupderr'></p>
                                         </div>
+                                       
                                         <div class="col-md-6">
-                                           <select class="form-control form-white form-white @error('statusupd') is-invalid @enderror" name="statusupd" id="_status">
-                                                <option value="0">Verified</option>
-                                                <option value="1">Unverified</option>
+                                           <select class="form-control  form-white form-white @error('typeupd') is-invalid @enderror" id="typeupd" name="typeupd">
+                                                <option value="0">Student</option>
+                                                <option value="1">Opportunity</option>
+                                                <option value="2">Sales</option>
                                             </select>
-                                            <p class="log-error mt-1" id='statusupd'></p>
+                                            <p class="log-error mt-1" id='typeupderr'></p>
+                                        </div>
+                                        
+                                    </div>
+
+
+                                    <div id="if_opportunity_edit">
+                                        <div class="row form-row">
+                                            <div class="col-md-6">
+                                                <input class="form-control form-white form-white @error('coated_amountupd') is-invalid @enderror" placeholder="Enter quoted amount" type="number" id='coated_amountupd' name="coated_amountupd" />
+                                                <p class="log-error mt-1" id='coated_amountupderr'></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input class="form-control form-white form-white @error('interested_courseupd') is-invalid @enderror" id='interested_courseupd' placeholder="Enter course name" type="text" name="interested_courseupd" />
+                                                <p class="log-error mt-1" id='interested_courseupderr'></p>
+                                            </div>
                                         </div>
                                     </div>
-                                
-                            </div>
+
+                                    <div id="if_sales_edit">
+                                        <div class="row form-row">
+                                            <div class="col-md-6">
+                                                <input class="form-control form-white form-white @error('sales_amountupd') is-invalid @enderror" id='sales_amountupd' placeholder="Enter sales amount" type="number" name="sales_amountupd" />
+                                                <p class="log-error mt-1" id='sales_amountupderr'></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input class="form-control form-white form-white @error('amount_paidupd') is-invalid @enderror" id='amount_paidupd' placeholder="Amount paid" type="number" name="amount_paidupd" />
+                                                <p class="log-error mt-1" id='amount_paidupderr'></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row form-row">
+                                            <div class="col-md-6">
+                                                <input class="form-control form-white form-white @error('balanceupd') is-invalid @enderror" id='balanceupd' placeholder="Balance" type="number" name="balanceupd" />
+                                                <p class="log-error mt-1" id='balanceupderr'></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control  form-white form-white @error('mode_of_paymentupd') is-invalid @enderror" name="mode_of_paymentupd" id="mode_of_paymentupd">
+                                                    <option value="0">Stripe</option>
+                                                    <option value="1">Paypal</option>
+                                                    <option value="2">Bank Transfer</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+            
+                                </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-success btn-sm waves-effect waves-light save-category">Update</button>
                             </div>
@@ -277,6 +388,9 @@
            <script type="text/javascript">
                function showUpdateForm(studentObject){
                     var status = '' ;
+                    var type   = '';
+                    var m_o_p  = '';
+
                     var json_decoded_object = JSON.parse(studentObject);
 
                     if(json_decoded_object.status == 0){
@@ -284,15 +398,54 @@
                     }else{
                         status = 'Unverfied';
                     }
+
+
+                    if(json_decoded_object.type == 0){
+                        
+                        type = 'Student';
+                        $("#if_opportunity_edit").css('display','none');
+                        $("#if_sales_edit").css('display','none');
+
+                    }else if(json_decoded_object.type == 1){
+                        type = 'Opportunity';
+                        $("#if_sales_edit").css('display','none');
+                    }else{
+                        type = 'Sales';
+                        $("#if_opportunity_edit").css('display','none');
+                    }
+
+                    
+
+                    if(json_decoded_object.mode_of_payment == 0){
+                        m_o_p = 'Stripe';
+                    }else if(json_decoded_object.mode_of_payment == 1){
+                        m_o_p = 'Paypal';
+                    }else if(json_decoded_object.mode_of_payment == 2){
+                        m_o_p = 'Bank Transfer';
+                    }else{
+                        m_o_p = 'Select';
+                    }
+                    
                     $("#student_id").val(json_decoded_object.id);
                     $("#_fname").val(json_decoded_object.fname);
                     $("#_lname").val(json_decoded_object.lname);
                     $("#_email").val(json_decoded_object.email);
                     $("#_mobile").val(json_decoded_object.mobile);
                     $("#_country").prepend($("<option selected></option>").attr("value", json_decoded_object.country).text(json_decoded_object.country));
+                    $("#typeupd").prepend($("<option selected></option>").attr("value", json_decoded_object.type).text(type));
                     $("#_status").prepend($("<option selected></option>").attr("value", json_decoded_object.status).text(status));
+                    
+                    $("#coated_amountupd").val(json_decoded_object.coated_amount);
+                    $("#interested_courseupd").val(json_decoded_object.interested_course);
+                    $("#sales_amountupd").val(json_decoded_object.sales_amount);
+                    $("#amount_paidupd").val(json_decoded_object.amount_paid);
+                    $("#balanceupd").val(json_decoded_object.balance);
+                    $("#mode_of_paymentupd").prepend($("<option selected></option>").attr("value", json_decoded_object.type).text(m_o_p));
+
                     $('#update-old-user').modal({backdrop: 'static',keyboard: false});
                 }
+
+                
 
            </script>
 

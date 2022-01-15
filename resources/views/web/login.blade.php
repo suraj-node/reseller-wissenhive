@@ -8,8 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="https://www.wissenhive.com/web-assets/img/logos/icon.png">
-    <title> Business with Wissenhive</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="https://wissenhivedatastorage.nyc3.digitaloceanspaces.com/my_storage_key/liveimage/1637908115.png">
+    <title> Business with Pinnacledu</title>
     <!-- Custom CSS -->
     <link href="{{ asset('web-assets/dist/css/style.min.css') }}" rel="stylesheet">
     <link href="{{ asset('web-assets/dist/css/login.css') }}" rel="stylesheet">
@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col">
                             <a href="https://www.wissenhive.com/" target="_blank" class="logo_anchor">
-                                <img src="https://wissenhivedatastorage.nyc3.digitaloceanspaces.com/my_storage_key/liveimage/1628582434.png" class="login_logo" alt=""><span>for
+                                <img src="https://wissenhivedatastorage.nyc3.digitaloceanspaces.com/my_storage_key/liveimage/1637907987.png" class="login_logo" alt=""><span>for
                                     business</span>
                             </a>
                         </div>
@@ -40,13 +40,14 @@
                     
                     <div class="row py-5 headings_login">
                         <div class="col mt-3">
-                            <img src="{{ Config::get('constant.SPACE').'/'.$reseller->logo }}"
+                            <img src="{{ asset('resellers/logo/').'/'.$reseller->logo }}"
                                 class="client_logo" alt="">
-                            <h1>WissenHive understands! </h1>
-                            <p>WissenHive offers it Corporate clientele the most engaging and reliable online learning
+                            <h1>Pinnacledu understands! </h1>
+                            <p>Pinnacledu offers it Corporate clientele the most engaging and reliable online learning
                                 platform. </p>
                         </div>
                     </div>
+                    
                     <div class="row py-2">
                         <div class="col-lg-6 col-sm-12 col-md-6 col-12">
                             <div class="section_list">
@@ -100,10 +101,10 @@
                             <ul class="d-flex align-items-center justify-content-center list-style-none calltop">
                                 <li class="">
                                     <i class="fas fa-envelope"></i><a
-                                        href="mailto:corp@wissenhive.co">corp@wissenhive.co</a>
+                                        href="mailto:corp@pinnacledu.com">corp@pinnacledu.com</a>
                                 </li>
                                 <li class="ml-4">
-                                    <i class="far fa-phone"></i><a href="callto:+91 8888888888">+91 888 888 8888 </a>
+                                    <i class="far fa-phone"></i><a href="tel:+91 8080857310">+91 8080857310 </a>
                                 </li>
                             </ul>
                         </div>
